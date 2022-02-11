@@ -20,6 +20,21 @@ export default function TextForm(props) {
         setText(event.target.value);
     }
 
+    const handleOnCopy = () => {
+        let text = document.getElementById("my-text");
+        text.select();
+        navigator.clipboard.writeText(text.value);
+    }
+
+    const handleExtraSpaces = () => {
+        let newText = text.split(/[ ]+/);
+        setText(newText.join(' '));
+    }
+
+    const handleClearText = () => {
+        setText("");
+    }
+
     return (
         <>
             <div className='container'>
@@ -27,10 +42,13 @@ export default function TextForm(props) {
                     <div className="col">
                         <div className="mb-3">
                             <label htmlFor="" className="text-muted">{props.heading}</label>
-                            <textarea className="form-control" value={text} onChange={handleOnChange} rows="10"></textarea>
+                            <textarea id='my-text' className="form-control" value={text} onChange={handleOnChange} rows="10"></textarea>
                         </div>
                         <button className="btn btn-primary me-3" onClick={handleUpClick}>Convert to uppercase</button>
                         <button className="btn btn-primary me-3" onClick={handleLoClick}>Convert to lowercase</button>
+                        <button className="btn btn-primary me-3" onClick={handleOnCopy}>Copy Text</button>
+                        <button className="btn btn-primary me-3" onClick={handleExtraSpaces}>Remove Extra space</button>
+                        <button className="btn btn-primary me-3" onClick={handleClearText}>Clear Text</button>
                     </div>
                 </div>
             </div>
